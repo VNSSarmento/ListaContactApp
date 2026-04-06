@@ -20,7 +20,7 @@ import {
 // Foto padrão para novos contatos (usando API de avatares gratuita)
 const FOTO_PADRAO_URL = 'https://api.dicebear.com/7.x/adventurer/png?seed=';
 
-export default function AdicionarContatoScreen({ navigation }) {
+export default function AdicionarContatoScreen({ navigation, route }) {
   // ---- ESTADO DOS CAMPOS ----
   // Cada campo do formulário tem seu próprio estado
   const [nome, setNome] = useState('');
@@ -70,7 +70,8 @@ export default function AdicionarContatoScreen({ navigation }) {
 
     // Navega de volta para a lista, enviando o novo contato como parâmetro
     // A tela de lista irá capturar esse parâmetro e adicionar à lista
-    navigation.navigate('ListaContatos', { novoContato });
+    route.params.adicionarContato(novoContato);
+    navigation.goBack();
   };
 
   // ---- INTERFACE ----
