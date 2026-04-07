@@ -29,17 +29,21 @@ export default function ListaContatosScreen({ navigation, route }) {
   const [busca, setBusca] = useState('');
 
   // ---- LÓGICA ----
+  const adicionarContato = (novoContato) => {
+    setContatos((listaAtual) => {
+      const telefoneJaExiste = listaAtual.some(
+        (c) => c.telefone === novoContato.telefone
+      );
 
-  // Escuta quando a tela recebe foco para capturar novo contato
-  React.useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
-      if (route.params?.novoContato) {
-        setContatos((listaAtual) => [route.params.novoContato, ...listaAtual]);
-        navigation.setParams({ novoContato: null });
+      if (telefoneJaExiste) {
+        alert('📡 Esse telefone já existe!');
+        return listaAtual;
       }
+
+      return [novoContato, ...listaAtual];
     });
-    return unsubscribe;
-  }, [navigation, route.params?.novoContato]);
+  };
+
 
   // Filtra a lista conforme o texto da busca
   const contatosFiltrados = contatos.filter((contato) =>
@@ -85,7 +89,11 @@ export default function ListaContatosScreen({ navigation, route }) {
 
       {/* Botão flutuante — componente reutilizável */}
       <BotaoFlutuante
-        onPress={() => navigation.navigate('AdicionarContato')}
+        onPress={() =>
+          navigation.navigate('AdicionarContato', {
+            adicionarContato,
+          })
+        }
       />
 
     </SafeAreaView>
