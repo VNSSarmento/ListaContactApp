@@ -1,8 +1,7 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 
-// "Props" são os dados que o componente recebe de fora
-// É como passar argumentos para uma função
+
 export default function CardContato({ contato, onPress }) {
   return (
     <TouchableOpacity
