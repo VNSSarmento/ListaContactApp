@@ -1,12 +1,3 @@
-// ============================================================
-// components/CampoBusca.js
-// Campo de pesquisa utilizado na tela de lista de contatos
-//
-// Props recebidas:
-//   - valor: texto atual do campo (controlado pelo estado da tela)
-//   - aoMudar: função chamada a cada letra digitada
-// ============================================================
-
 import React from 'react';
 import { View, TextInput, Text, StyleSheet } from 'react-native';
 
@@ -19,7 +10,7 @@ export default function CampoBusca({ valor, aoMudar }) {
         placeholder="Buscar tripulante..."
         placeholderTextColor="#8899aa"
         value={valor}
-        onChangeText={aoMudar}   // Dispara a função recebida a cada tecla
+        onChangeText={aoMudar}   
       />
     </View>
   );

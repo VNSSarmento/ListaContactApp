@@ -1,9 +1,3 @@
-// ============================================================
-// dados/contatos.js — Dados iniciais (mockados) da aplicação
-// "Mockar" dados significa criar dados falsos só para teste
-// Em um app real, esses dados viriam de um banco de dados ou API
-// ============================================================
-
 export const contatosIniciais = [
   {
     id: '1',

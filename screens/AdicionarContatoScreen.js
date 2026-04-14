@@ -1,8 +1,3 @@
-// ============================================================
-// screens/AdicionarContatoScreen.js — Tela de Adicionar Contato
-// Formulário para cadastrar um novo tripulante
-// ============================================================
-
 import React, { useState } from 'react';
 import {
   View,
@@ -12,29 +7,23 @@ import {
   StyleSheet,
   SafeAreaView,
   ScrollView,
-  Alert,        // Para exibir alertas/confirmações
-  KeyboardAvoidingView, // Evita o teclado cobrir os campos
+  Alert,       
+  KeyboardAvoidingView,
   Platform,
 } from 'react-native';
 
-// Foto padrão para novos contatos (usando API de avatares gratuita)
 const FOTO_PADRAO_URL = 'https://api.dicebear.com/7.x/adventurer/png?seed=';
 
 export default function AdicionarContatoScreen({ navigation, route }) {
-  // ---- ESTADO DOS CAMPOS ----
-  // Cada campo do formulário tem seu próprio estado
+  
   const [nome, setNome] = useState('');
   const [telefone, setTelefone] = useState('');
 
-  // ---- FUNÇÕES ----
 
-  // Formata o telefone enquanto o usuário digita
-  // Transforma "85999990001" em "(85) 99999-0001"
+ 
   const formatarTelefone = (texto) => {
-    // Remove tudo que não for número
     const apenasNumeros = texto.replace(/\D/g, '');
 
-    // Aplica a máscara conforme a quantidade de dígitos
     if (apenasNumeros.length <= 2) {
       return `(${apenasNumeros}`;
     } else if (apenasNumeros.length <= 7) {
@@ -44,9 +33,7 @@ export default function AdicionarContatoScreen({ navigation, route }) {
     }
   };
 
-  // Salva o novo contato e volta para a lista
   const salvarContato = () => {
-    // Validação: verifica se os campos foram preenchidos
     if (!nome.trim()) {
       Alert.alert('🚀 Atenção!', 'Por favor, informe o nome do tripulante.');
       return;
@@ -56,27 +43,21 @@ export default function AdicionarContatoScreen({ navigation, route }) {
       return;
     }
 
-    // Cria o objeto do novo contato
     const novoContato = {
-      // Date.now() gera um número único baseado no tempo atual
-      // Usamos como ID único para o novo contato
+     
       id: String(Date.now()),
       nome: nome.trim(),
       telefone: telefone,
-      // Gera um avatar baseado no nome do contato
       foto: `${FOTO_PADRAO_URL}${encodeURIComponent(nome)}&backgroundColor=b6e3f4`,
       emoji: '⭐',
     };
 
-    // Navega de volta para a lista, enviando o novo contato como parâmetro
-    // A tela de lista irá capturar esse parâmetro e adicionar à lista
+   
     route.params.adicionarContato(novoContato);
     navigation.goBack();
   };
 
-  // ---- INTERFACE ----
   return (
-    // KeyboardAvoidingView empurra o conteúdo para cima quando o teclado abre
     <KeyboardAvoidingView
       style={{ flex: 1 }}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -84,7 +65,6 @@ export default function AdicionarContatoScreen({ navigation, route }) {
       <SafeAreaView style={styles.container}>
         <ScrollView showsVerticalScrollIndicator={false}>
 
-          {/* Cabeçalho com botão de voltar */}
           <View style={styles.cabecalho}>
             <TouchableOpacity
               style={styles.botaoVoltar}
@@ -96,16 +76,13 @@ export default function AdicionarContatoScreen({ navigation, route }) {
             <Text style={styles.subtitulo}>Cadastre um novo membro da frota</Text>
           </View>
 
-          {/* Ilustração decorativa */}
           <View style={styles.areaIlustracao}>
             <Text style={styles.ilustracaoEmoji}>👨‍🚀</Text>
             <View style={styles.onda} />
           </View>
 
-          {/* Formulário */}
           <View style={styles.formulario}>
 
-            {/* Campo Nome */}
             <View style={styles.grupoCampo}>
               <Text style={styles.labelCampo}>🪐 Nome do Tripulante</Text>
               <TextInput
@@ -113,13 +90,12 @@ export default function AdicionarContatoScreen({ navigation, route }) {
                 placeholder="Ex: Comandante Luna"
                 placeholderTextColor="#4a7fa5"
                 value={nome}
-                onChangeText={setNome}     // Atualiza estado a cada tecla
+                onChangeText={setNome}     
                 maxLength={50}
-                autoCapitalize="words"     // Capitaliza cada palavra
+                autoCapitalize="words"     
               />
             </View>
 
-            {/* Campo Telefone */}
             <View style={styles.grupoCampo}>
               <Text style={styles.labelCampo}>📡 Frequência de Contato</Text>
               <TextInput
@@ -127,14 +103,12 @@ export default function AdicionarContatoScreen({ navigation, route }) {
                 placeholder="(00) 00000-0000"
                 placeholderTextColor="#4a7fa5"
                 value={telefone}
-                // Ao mudar, aplica a formatação automática
                 onChangeText={(texto) => setTelefone(formatarTelefone(texto))}
-                keyboardType="numeric"     // Teclado numérico
+                keyboardType="numeric"    
                 maxLength={15}
               />
             </View>
 
-            {/* Preview do avatar que será gerado */}
             {nome.length > 0 && (
               <View style={styles.preview}>
                 <Text style={styles.previewTexto}>
@@ -143,7 +117,6 @@ export default function AdicionarContatoScreen({ navigation, route }) {
               </View>
             )}
 
-            {/* Botão de salvar */}
             <TouchableOpacity
               style={styles.botaoSalvar}
               onPress={salvarContato}
@@ -152,7 +125,6 @@ export default function AdicionarContatoScreen({ navigation, route }) {
               <Text style={styles.botaoSalvarTexto}>🚀 Cadastrar Tripulante</Text>
             </TouchableOpacity>
 
-            {/* Botão cancelar */}
             <TouchableOpacity
               style={styles.botaoCancelar}
               onPress={() => navigation.goBack()}
@@ -167,7 +139,6 @@ export default function AdicionarContatoScreen({ navigation, route }) {
   );
 }
 
-// ---- ESTILOS ----
 const styles = StyleSheet.create({
   container: {
     flex: 1,

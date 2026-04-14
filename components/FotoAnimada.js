@@ -1,13 +1,3 @@
-// ============================================================
-// components/FotoAnimada.js
-// Foto do contato com anel de pulsação animado
-// Usado na tela de ligação em andamento
-//
-// Props recebidas:
-//   - uri: URL da imagem do contato
-//   - emoji: emoji decorativo exibido sobre a foto
-// ============================================================
-
 import React, { useEffect } from 'react';
 import { View, Image, Text, Animated, StyleSheet } from 'react-native';
 

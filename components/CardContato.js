@@ -1,17 +1,3 @@
-// ============================================================
-// components/CardContato.js
-// Card que representa um contato na lista principal
-//
-// CONCEITO: Componente reutilizável
-// Em vez de colocar todo o código dentro da tela, separamos
-// partes visuais em arquivos próprios. Isso deixa o código
-// mais organizado e fácil de manter.
-//
-// Props recebidas:
-//   - contato: objeto com id, nome, telefone, foto, emoji
-//   - onPress: função chamada ao tocar no card
-// ============================================================
-
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 
@@ -21,19 +7,16 @@ export default function CardContato({ contato, onPress }) {
   return (
     <TouchableOpacity
       style={styles.card}
-      onPress={onPress}       // Executa a função recebida via prop
+      onPress={onPress}       
       activeOpacity={0.8}
     >
-      {/* Foto do contato */}
       <Image source={{ uri: contato.foto }} style={styles.foto} />
 
-      {/* Informações: nome e telefone */}
       <View style={styles.infoContato}>
         <Text style={styles.nome}>{contato.nome}</Text>
         <Text style={styles.telefone}>{contato.telefone}</Text>
       </View>
 
-      {/* Botão de chamada (apenas visual) */}
       <View style={styles.botaoChamar}>
         <Text style={styles.iconeChamar}>📞</Text>
       </View>
@@ -43,7 +26,7 @@ export default function CardContato({ contato, onPress }) {
 
 const styles = StyleSheet.create({
   card: {
-    flexDirection: 'row',     // Itens lado a lado (horizontal)
+    flexDirection: 'row',     
     alignItems: 'center',
     backgroundColor: '#0a1929',
     borderRadius: 16,
@@ -55,13 +38,13 @@ const styles = StyleSheet.create({
   foto: {
     width: 56,
     height: 56,
-    borderRadius: 28,         // Metade da largura/altura = círculo perfeito
+    borderRadius: 28,         
     backgroundColor: '#1a3a5c',
     borderWidth: 2,
     borderColor: '#2d6a9f',
   },
   infoContato: {
-    flex: 1,                  // Ocupa todo o espaço horizontal disponível
+    flex: 1,                  
     marginLeft: 14,
   },
   nome: {

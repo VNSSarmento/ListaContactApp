@@ -1,11 +1,3 @@
-// ============================================================
-// screens/ListaContatosScreen.js — Tela Principal
-// Exibe a lista de todos os contatos
-//
-// Agora muito mais limpa! Os detalhes visuais foram movidos
-// para componentes próprios na pasta /components
-// ============================================================
-
 import React, { useState } from 'react';
 import {
   View,
@@ -17,18 +9,15 @@ import {
 
 import { contatosIniciais } from '../dados/contatos';
 
-// Importando os componentes da pasta /components
-// O caminho '../components/X' significa: "sobe uma pasta, entra em components"
+
 import CardContato from '../components/CardContato';
 import CampoBusca from '../components/CampoBusca';
 import BotaoFlutuante from '../components/BotaoFlutuante';
 
 export default function ListaContatosScreen({ navigation, route }) {
-  // ---- ESTADO ----
   const [contatos, setContatos] = useState(contatosIniciais);
   const [busca, setBusca] = useState('');
 
-  // ---- LÓGICA ----
   const adicionarContato = (novoContato) => {
     setContatos((listaAtual) => {
       const telefoneJaExiste = listaAtual.some(
@@ -45,36 +34,29 @@ export default function ListaContatosScreen({ navigation, route }) {
   };
 
 
-  // Filtra a lista conforme o texto da busca
   const contatosFiltrados = contatos.filter((contato) =>
     contato.nome.toLowerCase().includes(busca.toLowerCase())
   );
 
-  // ---- INTERFACE ----
   return (
     <SafeAreaView style={styles.container}>
 
-      {/* Cabeçalho */}
       <View style={styles.cabecalho}>
         <Text style={styles.titulo}>🌌 Agenda Galáctica</Text>
         <Text style={styles.subtitulo}>{contatos.length} tripulantes</Text>
       </View>
 
-      {/* Campo de busca — componente reutilizável */}
       <CampoBusca
         valor={busca}
         aoMudar={setBusca}
       />
 
-      {/* Lista de contatos */}
       <FlatList
         data={contatosFiltrados}
         keyExtractor={(item) => item.id}
-        // Renderiza o componente CardContato para cada item
         renderItem={({ item }) => (
           <CardContato
             contato={item}
-            // Passa a função de navegação como prop para o card
             onPress={() => navigation.navigate('Ligacao', { contato: item })}
           />
         )}
@@ -87,7 +69,6 @@ export default function ListaContatosScreen({ navigation, route }) {
         }
       />
 
-      {/* Botão flutuante — componente reutilizável */}
       <BotaoFlutuante
         onPress={() =>
           navigation.navigate('AdicionarContato', {
@@ -100,9 +81,7 @@ export default function ListaContatosScreen({ navigation, route }) {
   );
 }
 
-// ---- ESTILOS ----
-// Perceba que agora há muito menos estilos aqui,
-// porque cada componente cuida dos próprios estilos!
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

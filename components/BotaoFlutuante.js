@@ -1,13 +1,3 @@
-// ============================================================
-// components/BotaoFlutuante.js
-// Botão de ação flutuante (FAB — Floating Action Button)
-// Fica fixo no canto inferior direito da tela
-//
-// Props recebidas:
-//   - onPress: função chamada ao tocar no botão
-//   - icone: caractere/emoji exibido dentro do botão (padrão: "＋")
-// ============================================================
-
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 
@@ -18,7 +8,6 @@ export default function BotaoFlutuante({ onPress, icone = '＋' }) {
       onPress={onPress}
       activeOpacity={0.85}
     >
-      {/* O valor padrão do icone é "＋", mas pode ser qualquer emoji */}
       <Text style={styles.icone}>{icone}</Text>
     </TouchableOpacity>
   );
@@ -26,7 +15,7 @@ export default function BotaoFlutuante({ onPress, icone = '＋' }) {
 
 const styles = StyleSheet.create({
   botao: {
-    position: 'absolute',     // Flutua sobre o restante da tela
+    position: 'absolute',     
     bottom: 30,
     right: 24,
     width: 60,

@@ -1,29 +1,16 @@
-// ============================================================
-// screens/LigacaoScreen.js — Tela de Ligação em Andamento
-// Exibe informações do contato e simula uma chamada
-//
-// Componentes usados:
-//   - FotoAnimada: foto com anel pulsante (components/FotoAnimada.js)
-//   - BotaoAcao: botões de mudo, alto-falante, teclado (components/BotaoAcao.js)
-// ============================================================
-
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, Alert } from 'react-native';
 
-// Importando componentes da pasta /components
 import FotoAnimada from '../components/FotoAnimada';
 import BotaoAcao from '../components/BotaoAcao';
 
 export default function LigacaoScreen({ navigation, route }) {
-  // ---- RECEBENDO DADOS DA TELA ANTERIOR ----
   const { contato } = route.params;
 
-  // ---- ESTADO ----
+ 
   const [tempoLigacao, setTempoLigacao] = useState(0);
 
-  // ---- EFEITOS ----
-
-  // Cronômetro: incrementa 1 segundo a cada 1000ms
+  
   useEffect(() => {
     const intervalo = setInterval(() => {
       setTempoLigacao((tempo) => tempo + 1);
@@ -32,20 +19,16 @@ export default function LigacaoScreen({ navigation, route }) {
     return () => clearInterval(intervalo);
   }, []);
 
-  // ---- FUNÇÕES ----
-
-  // Converte segundos em formato MM:SS
+ 
   const formatarTempo = (segundos) => {
     const minutos = Math.floor(segundos / 60);
     const segs = segundos % 60;
     return `${String(minutos).padStart(2, '0')}:${String(segs).padStart(2, '0')}`;
   };
 
-  // ---- INTERFACE ----
   return (
     <SafeAreaView style={styles.container}>
 
-      {/* Estrelas decorativas */}
       <View style={styles.estrelas}>
         {['✦', '✧', '✦', '✧', '✦', '✧', '✦'].map((e, i) => (
           <Text key={i} style={[styles.estrela, { opacity: 0.1 + (i % 3) * 0.1 }]}>
@@ -54,23 +37,19 @@ export default function LigacaoScreen({ navigation, route }) {
         ))}
       </View>
 
-      {/* Informações do contato */}
       <View style={styles.areaInfo}>
         <Text style={styles.statusLigacao}>🛸 Ligação em Andamento</Text>
         <Text style={styles.nomeChamada}>{contato.nome}</Text>
         <Text style={styles.telefoneChamada}>{contato.telefone}</Text>
       </View>
 
-      {/* Foto animada — componente reutilizável */}
       <FotoAnimada uri={contato.foto} emoji={contato.emoji} />
 
-      {/* Cronômetro */}
       <View style={styles.areaTempo}>
         <Text style={styles.tempoTexto}>{formatarTempo(tempoLigacao)}</Text>
         <Text style={styles.tempoLabel}>tempo de comunicação</Text>
       </View>
 
-      {/* Botões de ação — componentes reutilizáveis */}
       <View style={styles.areaBotoes}>
         <View style={styles.linhaBotoes}>
 
@@ -95,7 +74,6 @@ export default function LigacaoScreen({ navigation, route }) {
         </View>
       </View>
 
-      {/* Botão encerrar ligação */}
       <TouchableOpacity
         style={styles.botaoEncerrar}
         onPress={() => navigation.goBack()}
@@ -109,7 +87,6 @@ export default function LigacaoScreen({ navigation, route }) {
   );
 }
 
-// ---- ESTILOS ----
 const styles = StyleSheet.create({
   container: {
     flex: 1,
